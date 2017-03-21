@@ -1,6 +1,6 @@
 <?php
-    include('conexion.db.php');	
-    require ('steamauth/steamauth.php');  
+	include('conexion.db.php');	
+    require('steamauth/steamauth.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,111 +23,87 @@
   </head>
   <body style="background-color: #EEE;">
     <div class="container" style="margin-top: 30px; margin-bottom: 30px; padding-bottom: 10px; background-color: #FFF;">
-		<h1>Steam Login PHP</h1>
+		<h1>Inicio</h1>
 		<hr>
 		<?php
+		//Si no existe la variable de sesion "steamid" mostramos el boton de inicio de sesion
 		if(!isset($_SESSION['steamid'])) {
-			echo "<div style='margin: 30px auto; text-align: center;'>Welcome Guest! Please log in!<br>";
+			echo "<div style='margin: 30px auto; text-align: center;'>Inicia sesión<br>";
 			loginbutton();
 			echo "</div>";
 		}  else {
-			include ('steamauth/userInfo.php');
+			//Si ya existe la variable de sesion...
+			include ('steamauth/userInfo.php'); //
 		?>	
 		<br>
-		<h4 style='margin-bottom: 3px; float:left;'>Data:</h4><span style='float:right;'><?php logoutbutton(); ?></span>
+		<h4 style='margin-bottom: 3px; float:left;'>Datos:</h4><span style='float:right;'><?php logoutbutton(); ?></span>
 		<table class='table table-striped'>
 			<tr>
-				<td><b>Nombre de la variable</b></td>
+				<td><b>Variable</b></td>
 				<td><b>Valor</b></td>
 				<td><b>Descripción</b></td>
 			</tr>
 			<tr>
-				<td>$steamprofile['steamid']</td>
-				<td><?=$steamprofile['steamid']?></td>
+				<td>$_SESSION['steam_steamid']</td>
+				<td><?php echo $_SESSION['steam_steamid']; ?></td>
 				<td>SteamID64 del usuario</td>
 			</tr>
 			<tr>
-				<td>$steamprofile['communityvisibilitystate']</td>
-				<td><?=$steamprofile['communityvisibilitystate']?></td>
-				<td>1 - Privada; 3 - Pública</td>
+				<td>$_SESSION['steam_personaname']</td>
+				<td><?php echo $_SESSION['steam_personaname']; ?></td>
+				<td>Nombre del usuario</td>
 			</tr>
 			<tr>
-				<td>$steamprofile['profilestate']</td>
-				<td><?=$steamprofile['profilestate']?></td>
-				<td>1 - El usuario ha configurado su perfil; 0 - No lo ha configurado</td>
+				<td>$_SESSION['steam_avatar']</td>
+				<td><img src="<?php echo $_SESSION['steam_avatar']; ?>"/></td>
+				<td>Avatar 32x32</td>
 			</tr>
 			<tr>
-				<td>$steamprofile['personaname']</td>
-				<td><?=$steamprofile['personaname']?></td>
-				<td>Nombre público (Nick)</td>
+				<td>$_SESSION['steam_avatarmedium']</td>
+				<td><img src="<?php echo $_SESSION['steam_avatarmedium']; ?>"/></td>
+				<td>Avatar 64x64</td>
 			</tr>
 			<tr>
-				<td>$steamprofile['lastlogoff']</td>
-				<td><?=$steamprofile['lastlogoff']?></td>
-				<td>
-					<a href='http://www.unixtimestamp.com/' target='_blank'>Marca de tiempo UNIX</a> desde el último cierre de sesión
-				</td>
+				<td>$_SESSION['acepta_tos']</td>
+				<td><?php echo $_SESSION['acepta_tos']; ?></td>
+				<td>Aceptacion de TOS (Terminos del servicio)</td>
 			</tr>
 			<tr>
-				<td>$steamprofile['profileurl']</td>
-				<td><?=$steamprofile['profileurl']?></td>
-				<td>Link personalizado al perfil del usuario</td>
+				<td>$_SESSION['fecha_registro']</td>
+				<td><?php echo $_SESSION['fecha_registro']; ?></td>
+				<td>Fecha de registro</td>
 			</tr>
 			<tr>
-				<td>$steamprofile['personastate']</td>
-				<td><?=$steamprofile['personastate']?></td>
-				<td>0 - Desconectado, 1 - En linea, 2 - Ocupado, 3 - Ausente, 4 - Durmiendo, 5 - Deseando intercambiar, 6 - Deseando jugar</td>
-			</tr>
-			<tr>
-				<td>$steamprofile['realname']</td>
-				<td><?=$steamprofile['realname']?></td>
-				<td>"Real" name (no siempre se obtiene)</td>
-			</tr>
-			<tr>
-				<td>$steamprofile['primaryclanid']</td>
-				<td><?=$steamprofile['primaryclanid']?></td>
-				<td>ID del grupo primaro (si se ha establecido)</td>
-			</tr>
-			<tr>
-				<td>$steamprofile['timecreated']</td>
-				<td><?=$steamprofile['timecreated']?>
-				</td>
-				<td>
-					<a href='http://www.unixtimestamp.com/' target='_blank'>Marca de tiempo UNIX</a> de la creación de la cuenta
-				</td>
-			</tr>
-			<tr>
-				<td>$steamprofile['uptodate']</td>
-				<td><?=$steamprofile['uptodate']?></td>
-				<td>
-					<a href='http://www.unixtimestamp.com/' target='_blank'>Marca de tiempo UNIX</a>  para el momento en que se actualizó por última vez la información de la cuenta del usuario
-				</td>
-			</tr>
-			<tr>
-				<td>$steamprofile['avatar']</td>
-				<td>
-					<img src='<?=$steamprofile['avatar']?>'><br>
-					<?=$steamprofile['avatar']?>
-				</td>
-				<td>32x32px avatar</td>
-			</tr>
-			<tr>
-				<td>$steamprofile['avatarmedium']</td>
-				<td>
-					<img src='<?=$steamprofile['avatarmedium']?>'><br>
-					<?=$steamprofile['avatarmedium']?>
-				</td>
-				<td>64x64px avatar</td>
-			</tr>
-			<tr>
-				<td>$steamprofile['avatarfull']</td>
-				<td>
-					<img src='<?=$steamprofile['avatarfull']?>'><br>
-					<?=$steamprofile['avatarfull']?>
-				</td>
-				<td>184x184px avatar</td>
+				<td>$_SESSION['baneado']</td>
+				<td><?php echo $_SESSION['baneado']; ?></td>
+				<td>Baneado (0 = no, 1 = si)</td>
 			</tr>
 		</table>
+		<h4 style='margin-bottom: 3px;'>Obtencion datos de BD:</h4>
+		<table class='table table-striped'>
+			<tr>
+				<td><b>SQL</b></td>
+				<td><b>Resultado</b></td>
+			</tr>
+			<tr>
+				<td><?php echo "SELECT balance, retirada_disponible, total_depositado, total_retirado 
+				FROM usuarios WHERE steamid=".$_SESSION['steamid']; ?></td>
+				<td><?php 
+				$query = mysqli_query($link,"SELECT balance, retirada_disponible, total_depositado, total_retirado 
+				FROM usuarios WHERE steamid=".$_SESSION['steamid']);
+				if(mysqli_num_rows($query)==1) {
+					$row = mysqli_fetch_assoc($query);
+					echo "Balance: ".$row['balance']."<br/>
+					Retirada disponible: ".$row['retirada_disponible']."<br/>
+					Total depositado: ".$row['total_depositado']."<br/>
+					Total retirado: ".$row['total_retirado'];
+				}
+				?></td>
+			</tr>
+		</table>
+		<h4 style='margin-bottom: 3px;'>Otras paginas:</h4>
+		<a href="depositar.php">Depositar skins</a><br/>
+		<a href="retirar.php">Retirar skins</a>
 		<?php
 		}    
 		?>
