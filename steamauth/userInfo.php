@@ -14,8 +14,8 @@ if (empty($_SESSION['steam_uptodate']) or empty($_SESSION['steam_personaname']))
 			   $_SESSION['steam_realname'] = "Real name not given";
 		}
 		$_SESSION['steam_uptodate'] = time();
-		$_hash = md5($_SESSION['steam_steamid']."tradebot_tutorial".rand(1, 500));
-		setcookie('hash', $_hash, time() + 3600 * 24 * 7, '/');
+		$_hash = md5($_SESSION['steam_steamid'].$hash_privado.rand(1, 500));
+		//setcookie('hash', $_hash, time() + 3600 * 24 * 7, '/');
 		//Compruebo si existe el usuario:
 		$check_user = mysqli_query($link,"SELECT steamid, acepta_tos, fecha_registro, hash, baneado FROM usuarios WHERE steamid=".$_SESSION['steam_steamid']);
 		if(mysqli_num_rows($check_user)==1) {
