@@ -1,4 +1,5 @@
 <?php
+    include('conexion.db.php');	
     require ('steamauth/steamauth.php');  
 ?>
 <!DOCTYPE html>
