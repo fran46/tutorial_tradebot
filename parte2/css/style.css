@@ -1,0 +1,22 @@
+.skin {
+	border: 1px solid #ccc;
+	width: 150px;
+	height: 170;
+	min-height: 170px;
+	text-align: center;
+	background-color: #fbfafa;
+	margin: 5px;
+	display: inline-block;
+	cursor: pointer;
+	vertical-align: top;
+}
+.skin:hover {
+	background-color: #d9edf7;
+}
+.precio {
+	color: green;
+    font-weight: bold;
+}
+.imagen {
+	padding: 7px;
+}
