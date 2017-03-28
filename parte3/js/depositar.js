@@ -63,7 +63,7 @@ $(document).ready(function() {
 						data = JSON.parse(data);
 						console.log(data);
 						if(data.success==true) {
-							
+							alertMensaje("success", data.mensaje);
 						} else {
 							alertMensaje("warning", data.mensaje);
 						}
